@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, redirect
 from src.web.config import config
 from src.web.controllers.to_do_item import to_do_item_blueprint
 from src.models.db import db, init_db
@@ -10,7 +10,7 @@ def create_app(env="development", static_folder="static"):
 
     @app.get("/")
     def home():
-        return render_template("layout.html")
+        return redirect("/items/regulars")
 
     app.register_blueprint(to_do_item_blueprint)
 
