@@ -1,0 +1,17 @@
+{% extends "layout.html" %} {% block title %} Categories {% endblock %} {% block head %} {{ super()
+}} {% endblock %} {% block content %} {% with messages = get_flashed_messages() %} {% if messages %}
+<ul class="flashes">
+	{% for message in messages %}
+	<div class="alert alert-warning" role="alert">
+		<li>{{ message }}</li>
+	</div>
+	{% endfor %}
+</ul>
+{% endif %} {% endwith %}
+<form method="post">
+	{{ form.hidden_tag() }}
+	<div>{{ form.name.label }} {{ form.name }}</div>
+	<div>{{ form.description.label }} {{ form.description }}</div>
+	<div>{{ form.submit }}</div>
+</form>
+{% endblock %}
