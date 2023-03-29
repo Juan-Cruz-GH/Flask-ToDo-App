@@ -9,6 +9,27 @@ messages %}
 	{% endfor %}
 </ul>
 {% endif %} {% endwith %}
+<div class="btn-group">
+	<button
+		type="button"
+		class="btn btn-primary dropdown-toggle"
+		data-bs-toggle="dropdown"
+		aria-expanded="false"
+	>
+		Select category
+	</button>
+	<ul class="dropdown-menu">
+		{% for category in categories %}
+		<li>
+			<a
+				class="dropdown-item"
+				href="{{ url_for('regular_tasks.list_all', category=category.name) }}"
+				>{{category.name}}</a
+			>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
 <table class="data-table">
 	<thead>
 		<tr>
@@ -35,13 +56,16 @@ messages %}
 	<ul class="pagination">
 		{% if tasks.has_prev %}
 		<li class="page-item">
-			<a class="page-link" href="{{ url_for('tasks.list_all', page=tasks.prev_num) }}">
+			<a
+				class="page-link"
+				href="{{ url_for('regular_tasks.list_all', page=tasks.prev_num) }}"
+			>
 				{{ '<<<' }}
 			</a>
 		</li>
 		{% endif %} {% for number in tasks.iter_pages() %} {% if tasks.page != number %}
 		<li class="page-item">
-			<a class="page-link" href="{{ url_for('tasks.list_all', page=number) }}">
+			<a class="page-link" href="{{ url_for('regular_tasks.list_all', page=number) }}">
 				{{ number }}
 			</a>
 		</li>
@@ -51,11 +75,17 @@ messages %}
 		</li>
 		{% endif %} {% endfor %} {% if tasks.has_next %}
 		<li class="page-item">
-			<a class="page-link" href="{{ url_for('tasks.list_all', page=tasks.next_num) }}">
+			<a
+				class="page-link"
+				href="{{ url_for('regular_tasks.list_all', page=tasks.next_num) }}"
+			>
 				{{ '>>>' }}
 			</a>
 		</li>
 		{% endif %}
 	</ul>
 </div>
+<a href="{{ url_for('regular_tasks.create_task') }}" class="btn btn-primary" role="button"
+	>Add regular task</a
+>
 {% endblock %}
