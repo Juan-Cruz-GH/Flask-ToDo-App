@@ -8,8 +8,8 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(100), unique=True, nullable=False)
     description = db.Column(db.String(255), nullable=False)
-    icon = db.Column(db.LargeBinary, nullable=False)
-    color = db.Column(db.String(6), nullable=False)
+    icon = db.Column(db.LargeBinary)
+    color = db.Column(db.String(6))
     date_added = db.Column(db.Date, default=date.today)
 
     def __init__(self, name, description, icon, color):
@@ -19,7 +19,10 @@ class Category(db.Model):
         self.color = color
 
     def set_icon(self, icon):
-        self.icon = icon.encode("utf-8")
+        if icon is None:
+            self.icon = None
+        else:
+            self.icon = icon.encode("utf-8")
 
     def get_icon(self):
         return self.icon.decode("utf-8")
