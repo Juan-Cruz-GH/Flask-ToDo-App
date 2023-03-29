@@ -1,0 +1,64 @@
+{% extends "layout.html" %} {% block title %} Categories {% endblock %} {% block head %} {{ super()
+}} {% endblock %} {% block content %} {% with messages = get_flashed_messages() %} {% if messages %}
+<ul class="flashes">
+	{% for message in messages %}
+	<div class="alert alert-warning" role="alert">
+		<li>{{ message }}</li>
+	</div>
+	{% endfor %}
+</ul>
+{% endif %} {% endwith %}
+<table class="data-table">
+	<thead>
+		<tr>
+			<th>Icon</th>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Date added</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for item in categories.items %}
+		<tr>
+			<td>{{item.icon}}</td>
+			<td>{{item.name}}</td>
+			<td>{{item.description}}</td>
+			<td>{{item.date_added}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagination mt-3">
+	<ul class="pagination">
+		{% if categories.has_prev %}
+		<li class="page-item">
+			<a
+				class="page-link"
+				href="{{ url_for('categories.list_all', page=categories.prev_num) }}"
+			>
+				{{ '<<<' }}
+			</a>
+		</li>
+		{% endif %} {% for number in categories.iter_pages() %} {% if categories.page != number %}
+		<li class="page-item">
+			<a class="page-link" href="{{ url_for('categories.list_all', page=number) }}">
+				{{ number }}
+			</a>
+		</li>
+		{% else %}
+		<li class="page-item active">
+			<span class="page-link">{{ number }}</span>
+		</li>
+		{% endif %} {% endfor %} {% if categories.has_next %}
+		<li class="page-item">
+			<a
+				class="page-link"
+				href="{{ url_for('categories.list_all', page=categories.next_num) }}"
+			>
+				{{ '>>>' }}
+			</a>
+		</li>
+		{% endif %}
+	</ul>
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "layout.html" %} {% block title %} Regular tasks {% endblock %} {% block head %} {{
+super() }} {% endblock %} {% block content %} {% with messages = get_flashed_messages() %} {% if
+messages %}
+<ul class="flashes">
+	{% for message in messages %}
+	<div class="alert alert-warning" role="alert">
+		<li>{{ message }}</li>
+	</div>
+	{% endfor %}
+</ul>
+{% endif %} {% endwith %}
+<table class="data-table">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Category</th>
+			<th>Deadline</th>
+			<th>Date added</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for item in tasks.items %}
+		<tr>
+			<td>{{item.name}}</td>
+			<td>{{item.description}}</td>
+			<td>{{item.category}}</td>
+			<td>{{item.deadline}}</td>
+			<td>{{item.date_added}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagination mt-3">
+	<ul class="pagination">
+		{% if tasks.has_prev %}
+		<li class="page-item">
+			<a class="page-link" href="{{ url_for('tasks.list_all', page=tasks.prev_num) }}">
+				{{ '<<<' }}
+			</a>
+		</li>
+		{% endif %} {% for number in tasks.iter_pages() %} {% if tasks.page != number %}
+		<li class="page-item">
+			<a class="page-link" href="{{ url_for('tasks.list_all', page=number) }}">
+				{{ number }}
+			</a>
+		</li>
+		{% else %}
+		<li class="page-item active">
+			<span class="page-link">{{ number }}</span>
+		</li>
+		{% endif %} {% endfor %} {% if tasks.has_next %}
+		<li class="page-item">
+			<a class="page-link" href="{{ url_for('tasks.list_all', page=tasks.next_num) }}">
+				{{ '>>>' }}
+			</a>
+		</li>
+		{% endif %}
+	</ul>
+</div>
+{% endblock %}

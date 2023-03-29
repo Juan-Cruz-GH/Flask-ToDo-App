@@ -1,6 +1,8 @@
-from flask import Flask, redirect
+from flask import Flask, redirect, render_template
 from src.web.config import config
-from src.web.controllers.to_do_item import to_do_item_blueprint
+from src.web.controllers.category import category_blueprint
+from src.web.controllers.frecuent_task import frecuent_task_blueprint
+from src.web.controllers.regular_task import regular_task_blueprint
 from src.models.db import db, init_db
 
 
@@ -10,9 +12,12 @@ def create_app(env="development", static_folder="static"):
 
     @app.get("/")
     def home():
-        return redirect("/items/regulars")
+        return render_template("layout.html")
+        # return redirect("/categories/all")
 
-    app.register_blueprint(to_do_item_blueprint)
+    app.register_blueprint(category_blueprint)
+    app.register_blueprint(frecuent_task_blueprint)
+    app.register_blueprint(regular_task_blueprint)
 
     with app.app_context():
         init_db(app)
