@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}
+Add recurring item
+{%endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class=flashes>
+    {% for message in messages %}
+    <div class="alert alert-warning" role="alert">
+        <li>{{ message }}</li>
+    </div>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+<div class="card">
+    <h5 class="card-header">Add regular item</h5>
+    <div class="card-body">
+        <form method="POST" action="{{ url_for('to_do_items.add_regular')}}">
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+                        <label class="form-label" for="nombre">Name</label>
+                        <input type="text" id="name" name="name" class="form-control" required />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <label class="form-label" for="categoria">Description</label>
+                        <input type="text" id="description" name="description" class="form-control" required />
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block mb-4">Accept</button>
+
+        </form>
+    </div>
+</div>
+{% endblock %}
