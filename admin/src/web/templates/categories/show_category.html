@@ -1,5 +1,6 @@
-{% extends "layout.html" %} {% block title %} Categories {% endblock %} {% block head %} {{ super()
-}} {% endblock %} {% block content %} {% with messages = get_flashed_messages() %} {% if messages %}
+{% extends "layout.html" %} {% block title %} Category {{category.id}} {% endblock %} {% block head
+%} {{ super() }} {% endblock %} {% block content %} {% with messages = get_flashed_messages() %} {%
+if messages %}
 <ul class="flashes">
 	{% for message in messages %}
 	<div class="alert alert-warning" role="alert">
@@ -11,7 +12,7 @@
 <div class="card">
 	<h5 class="card-header">Modify category</h5>
 	<div class="card-body">
-		<form method="POST" action="{{ url_for('categories.update_category')}}">
+		<form method="POST" action="{{ url_for('categories.update_category', id=category.id)}}">
 			<input type="text" id="id" name="id" value="{{category.id}}" hidden readonly />
 			<div class="row mb-4">
 				<div class="col">
