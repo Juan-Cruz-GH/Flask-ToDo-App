@@ -25,7 +25,7 @@
 			<td>{{item.name}}</td>
 			<td>{{item.description}}</td>
 			<td>{{item.date_added}}</td>
-			<td><a href="{{ url_for('categories.show_category_data', id=item.id) }}">Modify</a></td>
+			<td><a href="{{ url_for('categories.update_category', id=item.id) }}">Modify</a></td>
 		</tr>
 		{% endfor %}
 	</tbody>
@@ -63,8 +63,8 @@
 		{% endif %}
 	</ul>
 </div>
-<button type="button" class="btn btn-light">
-	<a href="{{ url_for('categories.create_category') }}" class="link-primary">Add category</a>
-</button>
+<a href="{{ url_for('categories.create_category') }}" class="btn btn-primary" role="button"
+	>Add category</a
+>
 
 {% endblock %}
