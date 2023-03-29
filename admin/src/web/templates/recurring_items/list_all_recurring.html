@@ -30,7 +30,7 @@ Recurring items
                 </div>
             </div>
         </caption>
-        <thead class="bg-light">
+        <thead class="fs-5">
             <tr>
                 <th>Name</th>
                 <th>Description</th>
@@ -43,16 +43,16 @@ Recurring items
             {% for item in recurring_items.items %}
             <tr>
                 <td>
-                    <p class="fw-normal mb-1">{{item.name}}</p>
+                    <p class="fs-5">{{item.name}}</p>
                 </td>
                 <td>
-                    <p class="fw-normal mb-1">{{item.description}}</p>
+                    <p class="fs-5">{{item.description}}</p>
                 </td>
                 <td>
-                    <p class="fw-normal mb-1">{{item.state}}</p>
+                    <p class="fs-5">{{item.state}}</p>
                 </td>
                 <td>
-                    <p class="fw-normal mb-1">{{item.inserted_at}}</p>
+                    <p class="fs-5">{{item.inserted_at}}</p>
                 </td>
                 <td>
                     <a href="{{ url_for('to_do_items.recurring_item_profile', id=item.id) }}"

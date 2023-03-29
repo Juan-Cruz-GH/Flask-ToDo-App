@@ -94,5 +94,9 @@ def list_recurring():
 
 @to_do_item_blueprint.route("/delete/<id>", methods=["DELETE", "GET"])
 def to_do_item_delete(id):
+    item = to_do_item.read(id)
     to_do_item.delete(id)
-    return redirect("/disciplinas")
+    if item.is_recurring == True:
+        return redirect("/items/recurring")
+    else:
+        return redirect("/items/regulars")

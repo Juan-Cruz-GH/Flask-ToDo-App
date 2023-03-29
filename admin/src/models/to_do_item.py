@@ -55,7 +55,7 @@ def list_regular_items(page):
     regulars = (
         ToDoItem.query.filter(ToDoItem.is_recurring == False)
         .order_by(ToDoItem.priority.desc())
-        .paginate(page=page, per_page=10)
+        .paginate(page=page, per_page=30)
     )
     return regulars
 
@@ -64,6 +64,6 @@ def list_recurring_items(page):
     recurring = (
         ToDoItem.query.filter(ToDoItem.is_recurring == True)
         .order_by(ToDoItem.priority.desc())
-        .paginate(page=page, per_page=10)
+        .paginate(page=page, per_page=30)
     )
     return recurring
