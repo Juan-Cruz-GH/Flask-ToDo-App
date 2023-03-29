@@ -66,7 +66,7 @@ Recurring items
         <ul class="pagination">
             {% if recurring_items.has_prev %}
             <li class="page-item">
-                <a class='page-link' href="#">
+                <a class='page-link' href="{{ url_for('to_do_items.list_recurring', page=recurring_items.prev_num) }}">
                     {{ '<<<' }} </a>
             </li>
             {% endif %}
@@ -74,7 +74,7 @@ Recurring items
             {% for number in recurring_items.iter_pages() %}
             {% if recurring_items.page != number %}
             <li class="page-item">
-                <a class='page-link' href="#">
+                <a class='page-link' href="{{ url_for('to_do_items.list_recurring', page=number) }}">
                     {{ number }}
                 </a>
             </li>
@@ -87,7 +87,7 @@ Recurring items
 
             {% if recurring_items.has_next %}
             <li class="page-item">
-                <a class='page-link' href="#">
+                <a class='page-link' href="{{ url_for('to_do_items.list_recurring', page=recurring_items.next_num) }}">
                     {{ '>>>' }}
                 </a>
             </li>

@@ -66,7 +66,7 @@ Regular items
         <ul class="pagination">
             {% if regular_items.has_prev %}
             <li class="page-item">
-                <a class='page-link' href="#">
+                <a class='page-link' href="{{ url_for('to_do_items.list_regulars', page=regular_items.prev_num) }}">
                     {{ '<<<' }} </a>
             </li>
             {% endif %}
@@ -74,7 +74,7 @@ Regular items
             {% for number in regular_items.iter_pages() %}
             {% if regular_items.page != number %}
             <li class="page-item">
-                <a class='page-link' href="#">
+                <a class='page-link' href="{{ url_for('to_do_items.list_regulars', page=number) }}">
                     {{ number }}
                 </a>
             </li>
@@ -87,7 +87,7 @@ Regular items
 
             {% if regular_items.has_next %}
             <li class="page-item">
-                <a class='page-link' href="#">
+                <a class='page-link' href="{{ url_for('to_do_items.list_regulars', page=regular_items.next_num) }}">
                     {{ '>>>' }}
                 </a>
             </li>
