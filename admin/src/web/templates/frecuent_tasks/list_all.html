@@ -40,6 +40,7 @@ messages %}
 			<th>Name</th>
 			<th>Description</th>
 			<th>Frecuency</th>
+			<th>Priority</th>
 			<th>Last completed</th>
 			<th>Date added</th>
 			<th>Modify</th>
@@ -51,6 +52,7 @@ messages %}
 			<td>{{item.name}}</td>
 			<td>{{item.description}}</td>
 			<td>{{item.frecuency}}</td>
+			<td>{{item.priority}}</td>
 			<td>{{item.last_completed}}</td>
 			<td>{{item.date_added}}</td>
 			<td><a href="{{ url_for('frecuent_tasks.update_task', id=item.id) }}">Modify</a></td>

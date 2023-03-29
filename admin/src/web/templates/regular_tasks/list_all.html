@@ -39,6 +39,7 @@ messages %}
 			<th>Name</th>
 			<th>Description</th>
 			<th>Deadline</th>
+			<th>Priority</th>
 			<th>Date added</th>
 			<th>Modify</th>
 		</tr>
@@ -49,6 +50,7 @@ messages %}
 			<td>{{item.name}}</td>
 			<td>{{item.description}}</td>
 			<td>{{item.deadline}}</td>
+			<td>{{item.priority}}</td>
 			<td>{{item.date_added}}</td>
 			<td><a href="{{ url_for('regular_tasks.update_task', id=item.id) }}">Modify</a></td>
 		</tr>
