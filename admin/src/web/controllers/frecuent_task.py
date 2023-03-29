@@ -27,7 +27,7 @@ def create_task():
         "frecuency": request.form.get("frecuency"),
     }
     frecuent_task.create(data)
-    return redirect("/frecuent-tasks/all")
+    return redirect("/frecuent-tasks/")
 
 
 @frecuent_task_blueprint.post("/update-task")
@@ -41,7 +41,7 @@ def update_task():
         "last_completed": request.form.get("last_completed"),
     }
     frecuent_task.update(data)
-    return redirect("/frecuent-tasks/all")
+    return redirect("/frecuent-tasks/")
 
 
 @frecuent_task_blueprint.get("/")
@@ -55,4 +55,4 @@ def list_all():
 @frecuent_task_blueprint.route("/delete/<id>", methods=["GET", "DELETE"])
 def delete_task(id):
     frecuent_task.delete_by_id(id)
-    return redirect("/frecuent-tasks/all")
+    return redirect("/frecuent-tasks/")
