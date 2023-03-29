@@ -1,5 +1,5 @@
 from src.models.db import db
-from datetime import datetime
+from datetime import date
 
 
 class ToDoItem(db.Model):
@@ -7,7 +7,7 @@ class ToDoItem(db.Model):
     name = db.Column(db.String, unique=True, nullable=False)
     description = db.Column(db.String, nullable=False)
     is_recurring = db.Column(db.Boolean, nullable=False)
-    inserted_at = db.Column(db.DateTime, default=datetime.now)
+    inserted_at = db.Column(db.Date, default=date.today)
 
     def __init__(self, name, description, is_recurring):
         self.name = name
@@ -44,7 +44,9 @@ def is_recurring(id):
     return read(id).is_recurring
 
 
-def list_items(page):
-    return ToDoItem.query.paginate(
-        page, per_page=10
-    )  # should ask the config module later
+def list_regular_items(page):
+    return db.paginate(db.select(ToDoItem).filter_by(is_recurring=False))
+
+
+def list_recurring_items(page):
+    return db.paginate(db.select(ToDoItem).filter_by(is_recurring=True))

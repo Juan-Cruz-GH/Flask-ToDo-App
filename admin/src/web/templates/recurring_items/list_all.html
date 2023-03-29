@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Recurring items
+{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class=flashes>
+    {% for message in messages %}
+    <div class="alert alert-warning" role="alert">
+        <li>{{ message }}</li>
+    </div>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+<div class="table-responsive">
+    <table class="table align-middle mb-0 bg-white caption-top">
+        <caption>
+            <div class="row">
+                <div class="col-5">
+                    <h4>List of recurring items</h4>
+                </div>
+            </div>
+        </caption>
+        <thead class="bg-light">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Added</th>
+                <th>Modify</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in recurring_items.items %}
+            <tr>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <div class="ms-1">
+                            <p class="fw-bold mb-1">{{item.id}}</p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <p class="fw-normal mb-1">{{item.name}}</p>
+                </td>
+                <td>
+                    <p class="fw-normal mb-1">{{item.description}}</p>
+                </td>
+                <td>
+                    <p class="fw-normal mb-1">{{item.inserted_at}}</p>
+                </td>
+                <td>
+                    <a href="#" class="btn btn-warning">Modify</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination mt-3">
+        <ul class="pagination">
+            {% if recurring_items.has_prev %}
+            <li class="page-item">
+                <a class='page-link' href="#">
+                    {{ '<<<' }} </a>
+            </li>
+            {% endif %}
+
+            {% for number in recurring_items.iter_pages() %}
+            {% if recurring_items.page != number %}
+            <li class="page-item">
+                <a class='page-link' href="#">
+                    {{ number }}
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item active">
+                <span class='page-link'>{{ number }}</span>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            {% if recurring_items.has_next %}
+            <li class="page-item">
+                <a class='page-link' href="#">
+                    {{ '>>>' }}
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
