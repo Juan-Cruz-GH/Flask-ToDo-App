@@ -1,6 +1,8 @@
 from src.models.db import db
 from datetime import date
 
+PER_PAGE = 9
+
 
 class ToDoItem(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -56,7 +58,7 @@ def list_regular_items(page):
     regulars = (
         ToDoItem.query.filter(ToDoItem.is_recurring == False)
         .order_by(ToDoItem.priority.desc())
-        .paginate(page=page, per_page=30)
+        .paginate(page=page, per_page=PER_PAGE)
     )
     return regulars
 
@@ -65,6 +67,6 @@ def list_recurring_items(page):
     recurring = (
         ToDoItem.query.filter(ToDoItem.is_recurring == True)
         .order_by(ToDoItem.priority.desc())
-        .paginate(page=page, per_page=30)
+        .paginate(page=page, per_page=PER_PAGE)
     )
     return recurring
