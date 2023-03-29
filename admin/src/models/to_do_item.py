@@ -6,6 +6,7 @@ class ToDoItem(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String, unique=True, nullable=False)
     description = db.Column(db.String, nullable=False)
+    state = db.Column(db.String, nullable=False)
     is_recurring = db.Column(db.Boolean, nullable=False)
     inserted_at = db.Column(db.Date, default=date.today)
 
@@ -15,7 +16,9 @@ class ToDoItem(db.Model):
         self.is_recurring = is_recurring
 
     def __repr__(self) -> str:
-        return f"Item with name {self.name} and description {self.description}"
+        return (
+            f"Name {self.name} \n Description {self.description} \n State {self.state}"
+        )
 
 
 def create(data):
@@ -31,6 +34,7 @@ def update(data):
     item = ToDoItem.query.get(data["id"])
     item.name = data["name"]
     item.description = data["description"]
+    item.state = data["state"]
     item.is_recurring = data["is_recurring"]
     db.session.commit()
 
