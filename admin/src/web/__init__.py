@@ -12,8 +12,7 @@ def create_app(env="development", static_folder="static"):
 
     @app.get("/")
     def home():
-        return render_template("layout.html")
-        # return redirect("/categories/all")
+        return redirect("/regular-tasks/")
 
     app.register_blueprint(category_blueprint)
     app.register_blueprint(frecuent_task_blueprint)
