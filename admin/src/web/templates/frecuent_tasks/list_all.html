@@ -47,11 +47,11 @@ messages %}
 		<tr>
 			<td>{{item.name}}</td>
 			<td>{{item.description}}</td>
-			<td>{{item.category}}</td>
+			<td>{{item.category.name}}</td>
 			<td>{{item.frecuency}}</td>
 			<td>{{item.last_completed}}</td>
 			<td>{{item.date_added}}</td>
-			<td><a href="{{ url_for('frecuent_tasks.show_task_data', id=item.id) }}">Modify</a></td>
+			<td><a href="{{ url_for('frecuent_tasks.update_task', id=item.id) }}">Modify</a></td>
 		</tr>
 		{% endfor %}
 	</tbody>
@@ -89,7 +89,8 @@ messages %}
 		{% endif %}
 	</ul>
 </div>
-<button type="button" class="btn btn-light">
-	<a href="{{ url_for('frecuent_tasks.create_task') }}" class="link-primary">Add frecuent task</a>
-</button>
+<a href="{{ url_for('frecuent_tasks.create_task') }}" class="btn btn-primary" role="button"
+	>Add frecuent task</a
+>
+
 {% endblock %}
