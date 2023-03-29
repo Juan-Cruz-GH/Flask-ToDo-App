@@ -39,7 +39,7 @@ def update_category():
     return redirect("/categories/all")
 
 
-@category_blueprint.get("/all")
+@category_blueprint.get("/")
 def list_all():
     per_page = 10  # need this variable to be customizable eventually
     page = request.args.get("page", 1, type=int)
