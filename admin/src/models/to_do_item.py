@@ -21,9 +21,7 @@ class ToDoItem(db.Model):
         self.is_recurring = is_recurring
 
     def __repr__(self) -> str:
-        return (
-            f"Name {self.name} \n Description {self.description} \n State {self.state}"
-        )
+        return f"Name {self.name} \n Description {self.description} \n State {self.state}"
 
 
 def create(data):
@@ -31,7 +29,7 @@ def create(data):
     db.session.commit()
 
 
-def read(id):
+def find(id):
     return ToDoItem.query.get(id)
 
 
@@ -46,12 +44,12 @@ def update(data):
 
 
 def delete(id):
-    db.session.delete(read(id))
+    db.session.delete(find(id))
     db.session.commit()
 
 
 def is_recurring(id):
-    return read(id).is_recurring
+    return find(id).is_recurring
 
 
 def list_regular_items(page):
