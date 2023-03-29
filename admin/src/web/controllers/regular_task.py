@@ -26,7 +26,7 @@ def create_task():
         "is_completed": request.form.get("is_completed"),
     }
     regular_task.create(data)
-    return redirect("/regular-tasks/all")
+    return redirect("/regular-tasks/")
 
 
 @regular_task_blueprint.post("/update-task")
@@ -40,7 +40,7 @@ def update_task():
         "is_completed": request.form.get("is_completed"),
     }
     regular_task.update(data)
-    return redirect("/regular-tasks/all")
+    return redirect("/regular-tasks/")
 
 
 @regular_task_blueprint.get("/")
@@ -54,4 +54,4 @@ def list_all():
 @regular_task_blueprint.route("/delete/<id>", methods=["GET", "DELETE"])
 def delete_task(id):
     regular_task.delete_by_id(id)
-    return redirect("/regular-tasks/all")
+    return redirect("/regular-tasks/")
