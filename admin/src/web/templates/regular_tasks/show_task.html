@@ -1,0 +1,166 @@
+{% extends "layout.html" %} {% block title %} Regular task {{task.id}} {% endblock %} {% block head
+%} {{ super() }} {% endblock %} {% block content %} {% with messages = get_flashed_messages() %} {%
+if messages %}
+<ul class="flashes">
+	{% for message in messages %}
+	<div class="alert alert-warning" role="alert">
+		<li>{{ message }}</li>
+	</div>
+	{% endfor %}
+</ul>
+{% endif %} {% endwith %}
+<div class="card">
+	<h5 class="card-header">Modify regular task</h5>
+	<div class="card-body">
+		<form method="POST" action="{{ url_for('regular_tasks.update_task', id=task.id)}}">
+			<input type="text" id="id" name="id" value="{{task.id}}" hidden readonly />
+			<div class="row mb-4">
+				<div class="col">
+					<div class="form-outline">
+						<label class="form-label" for="name">Name</label>
+						<input
+							type="text"
+							id="name"
+							name="name"
+							class="form-control"
+							value="{{task.name}}"
+						/>
+					</div>
+				</div>
+			</div>
+
+			<div class="row mb-4">
+				<div class="col">
+					<div class="form-outline">
+						<label class="form-label" for="description">Description</label>
+						<input
+							type="text"
+							id="description"
+							name="description"
+							class="form-control"
+							value="{{task.description}}"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="row mb-4">
+				<div class="col">
+					<div class="form-outline">
+						<label class="form-label" for="priority">Priority</label>
+						<select
+							class="form-control select-input"
+							id="priority"
+							name="priority"
+							required
+						>
+							<option value="{{task.priority}}">{{task.priority}}</option>
+							<option value="5">5</option>
+							<option value="4">4</option>
+							<option value="3">3</option>
+							<option value="2">2</option>
+							<option value="1">1</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row mb-4">
+				<div class="col">
+					<div class="form-outline">
+						<label class="form-label" for="category">Category</label>
+						<select
+							class="form-control select-input"
+							id="category_id"
+							name="category_id"
+							value="{{task.category.id}}"
+							required
+						>
+							{% for category in categories %} {% if category.id == task.category.id
+							%}
+							<option selected="{{category.id}}" value="{{category.id}}">
+								{{category.name}}
+							</option>
+							{% else %}
+							<option value="{{category.id}}">{{category.name}}</option>
+							{% endif %} {% endfor %}
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row mb-4">
+				<div class="col">
+					<div class="form-outline">
+						<label class="form-label" for="deadline">Deadline</label>
+						<input
+							type="date"
+							id="deadline"
+							name="deadline"
+							min="2023-03-01"
+							max="2025-12-31"
+							class="form-control"
+							value="{{task.deadline}}"
+							required
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="row mb-4">
+				<div class="col">
+					<div class="form-outline">
+						<label class="form-label" for="completed">Completed?</label>
+						<select
+							class="form-control select-input"
+							id="completed"
+							name="completed"
+							required
+						>
+							<option value="yes">Yes</option>
+							<option selected="no" value="no">No</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-primary btn-block mb-4">Accept</button>
+			<button
+				type="button"
+				class="btn btn-danger mb-4"
+				data-bs-toggle="modal"
+				data-bs-target="#eliminarModal"
+			>
+				Delete
+			</button>
+		</form>
+	</div>
+</div>
+<div
+	class="modal"
+	tabindex="-1"
+	id="eliminarModal"
+	aria-labelledby="eliminarModal"
+	aria-hidden="true"
+>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Delete regular task</h5>
+				<button
+					type="button"
+					class="btn-close"
+					data-bs-dismiss="modal"
+					aria-label="Close"
+				></button>
+			</div>
+			<div class="modal-body">
+				<p>Are you sure?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+				<a
+					href="{{ url_for('regular_tasks.delete_task', id=task.id)}}"
+					class="btn btn-primary"
+					>Yes</a
+				>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
