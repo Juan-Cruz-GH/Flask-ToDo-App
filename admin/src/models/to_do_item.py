@@ -7,12 +7,15 @@ class ToDoItem(db.Model):
     name = db.Column(db.String, unique=True, nullable=False)
     description = db.Column(db.String, nullable=False)
     state = db.Column(db.String, nullable=False)
+    priority = db.Column(db.Integer, nullable=False)
     is_recurring = db.Column(db.Boolean, nullable=False)
     inserted_at = db.Column(db.Date, default=date.today)
 
-    def __init__(self, name, description, is_recurring):
+    def __init__(self, name, description, state, priority, is_recurring):
         self.name = name
         self.description = description
+        self.state = state
+        self.priority = priority
         self.is_recurring = is_recurring
 
     def __repr__(self) -> str:
@@ -49,8 +52,18 @@ def is_recurring(id):
 
 
 def list_regular_items(page):
-    return db.paginate(db.select(ToDoItem).filter_by(is_recurring=False))
+    regulars = (
+        ToDoItem.query.filter(ToDoItem.is_recurring == False)
+        .order_by(ToDoItem.priority.desc())
+        .paginate(page=page, per_page=10)
+    )
+    return regulars
 
 
 def list_recurring_items(page):
-    return db.paginate(db.select(ToDoItem).filter_by(is_recurring=True))
+    recurring = (
+        ToDoItem.query.filter(ToDoItem.is_recurring == True)
+        .order_by(ToDoItem.priority.desc())
+        .paginate(page=page, per_page=10)
+    )
+    return recurring
