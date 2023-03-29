@@ -10,7 +10,7 @@
 
 .data-table th,
 .data-table td {
-	padding: 8px;
+	padding: 10px;
 	text-align: center;
 }
 
@@ -20,7 +20,7 @@
 }
 
 .data-table tr {
-	line-height: 85%;
+	line-height: 150%;
 }
 
 .data-table tr:nth-child(even) {
