@@ -59,6 +59,11 @@ def list_all():
         "categories": category.all_categories(),
         "header": selected_category.name,
     }
+    for task in kwargs["tasks"]:
+        year = task.deadline.strftime("%Y")
+        month = task.deadline.strftime("%m")
+        day = task.deadline.strftime("%d")
+        task.deadline = f"{day}/{month}/{year}"
     return render_template("/regular_tasks/list_all.html", **kwargs)
 
 
