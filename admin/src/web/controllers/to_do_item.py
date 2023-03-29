@@ -35,6 +35,7 @@ def update_regular():
         "name": request.form.get("name"),
         "description": request.form.get("description"),
         "state": request.form.get("state"),
+        "priority": request.form.get("priority"),
         "is_recurring": False,
     }
     to_do_item.update(data)
@@ -79,6 +80,7 @@ def update_recurring():
         "name": request.form.get("name"),
         "description": request.form.get("description"),
         "state": request.form.get("state"),
+        "priority": request.form.get("priority"),
         "is_recurring": True,
     }
     to_do_item.update(data)

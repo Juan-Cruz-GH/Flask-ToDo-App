@@ -38,6 +38,7 @@ def update(data):
     item.name = data["name"]
     item.description = data["description"]
     item.state = data["state"]
+    item.priority = data["priority"]
     item.is_recurring = data["is_recurring"]
     db.session.commit()
 
