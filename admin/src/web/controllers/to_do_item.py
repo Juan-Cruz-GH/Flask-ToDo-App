@@ -94,7 +94,7 @@ def list_recurring():
     return render_template("/recurring_items/list_all_recurring.html", **kwargs)
 
 
-@to_do_item_blueprint.delete("/delete/<id>")
+@to_do_item_blueprint.route("/delete/<id>", methods=["GET", "DELETE"])
 def to_do_item_delete(id):
     item = to_do_item.find(id)
     to_do_item.delete(id)
