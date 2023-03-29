@@ -50,13 +50,14 @@ def update_task(id):
 def list_all():
     per_page = 10  # need this variable to be customizable eventually
     category_arg = request.args.get("category", "Facultad", type=str)
-    category_id = category.find_by_name(category_arg).id
+    selected_category = category.find_by_name(category_arg)
     page = request.args.get("page", 1, type=int)
     kwargs = {
         "tasks": frecuent_task.list_tasks(
-            category_id=category_id, page=page, per_page=per_page
+            category_id=selected_category.id, page=page, per_page=per_page
         ),
         "categories": category.all_categories(),
+        "header": selected_category.name,
     }
     return render_template("/frecuent_tasks/list_all.html", **kwargs)
 
