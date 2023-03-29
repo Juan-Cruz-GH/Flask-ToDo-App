@@ -74,9 +74,14 @@ if messages %}
 							value="{{task.category.id}}"
 							required
 						>
-							{% for category in categories %}
+							{% for category in categories %} {% if category.id == task.category.id
+							%}
+							<option selected="{{category.id}}" value="{{category.id}}">
+								{{category.name}}
+							</option>
+							{% else %}
 							<option value="{{category.id}}">{{category.name}}</option>
-							{% endfor %}
+							{% endif %} {% endfor %}
 						</select>
 					</div>
 				</div>
@@ -107,7 +112,7 @@ if messages %}
 							required
 						>
 							<option value="yes">Yes</option>
-							<option value="no">No</option>
+							<option selected="no" value="no">No</option>
 						</select>
 					</div>
 				</div>
