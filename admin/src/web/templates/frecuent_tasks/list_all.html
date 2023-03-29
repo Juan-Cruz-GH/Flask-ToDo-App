@@ -9,33 +9,36 @@ messages %}
 	{% endfor %}
 </ul>
 {% endif %} {% endwith %}
-<div class="btn-group">
-	<button
-		type="button"
-		class="btn btn-primary dropdown-toggle"
-		data-bs-toggle="dropdown"
-		aria-expanded="false"
-	>
-		Select category
-	</button>
-	<ul class="dropdown-menu">
-		{% for category in categories %}
-		<li>
-			<a
-				class="dropdown-item"
-				href="{{ url_for('frecuent_tasks.list_all', category=category.name) }}"
-				>{{category.name}}</a
-			>
-		</li>
-		{% endfor %}
-	</ul>
+<div class="position-relative">
+	<div class="btn-group">
+		<button
+			type="button"
+			class="btn btn-primary dropdown-toggle"
+			data-bs-toggle="dropdown"
+			aria-expanded="false"
+		>
+			Select category
+		</button>
+		<ul class="dropdown-menu">
+			{% for category in categories %}
+			<li>
+				<a
+					class="dropdown-item"
+					href="{{ url_for('frecuent_tasks.list_all', category=category.name) }}"
+					>{{category.name}}</a
+				>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<h1 class="position-absolute top-0 start-50 translate-middle-x">Category: {{header}}</h1>
 </div>
+
 <table class="data-table">
 	<thead>
 		<tr>
 			<th>Name</th>
 			<th>Description</th>
-			<th>Category</th>
 			<th>Frecuency</th>
 			<th>Last completed</th>
 			<th>Date added</th>
@@ -47,7 +50,6 @@ messages %}
 		<tr>
 			<td>{{item.name}}</td>
 			<td>{{item.description}}</td>
-			<td>{{item.category.name}}</td>
 			<td>{{item.frecuency}}</td>
 			<td>{{item.last_completed}}</td>
 			<td>{{item.date_added}}</td>
