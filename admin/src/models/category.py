@@ -38,7 +38,7 @@ def find_by_id(id):
 
 
 def find_by_name(name):
-    return Category.query.get(name)
+    return Category.query.filter(Category.name == name).first()
 
 
 def update(data):
@@ -65,3 +65,20 @@ def list_categories(page, per_page):
         page=page, per_page=per_page
     )
     return categories
+
+
+def all_categories():
+    list = []
+    categories = Category.query.order_by(Category.name).all()
+    for category in categories:
+        row = category.__dict__
+        dict = {
+            "id": row["id"],
+            "name": row["name"],
+            "description": row["description"],
+            "icon": row["icon"],
+            "color": row["color"],
+            "date_added": row["date_added"],
+        }
+        list.append(dict)
+    return list
