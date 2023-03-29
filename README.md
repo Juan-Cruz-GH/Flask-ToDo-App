@@ -1,0 +1,1 @@
+Basic ToDo app which separates between frecuent things I need to do every certain amount of time vs regular things I need to do only once. Each ToDo item has a category associated with it, for example school, work, shopping, etc.
