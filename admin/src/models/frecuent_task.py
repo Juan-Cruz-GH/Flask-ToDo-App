@@ -46,7 +46,8 @@ def update(data):
     task.priority = data["priority"]
     task.category = data["category"]
     task.frecuency = data["frecuency"]
-    task.last_completed = data["last_completed"]
+    if data["completed_today"]:
+        task.last_completed = date.today()
     db.session.commit()
 
 
@@ -60,8 +61,9 @@ def delete_by_name(name):
     db.session.commit()
 
 
-def list_tasks(page, per_page):
-    tasks = FrecuentTask.query.order_by(FrecuentTask.priority.asc()).paginate(
+def list_tasks(category_id, page, per_page):
+    category_tasks = FrecuentTask.query.filter_by(category_id=category_id)
+    tasks = category_tasks.order_by(FrecuentTask.priority.asc()).paginate(
         page=page, per_page=per_page
     )
     return tasks

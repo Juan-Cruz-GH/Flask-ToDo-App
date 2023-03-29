@@ -58,11 +58,10 @@ def delete_by_name(name):
     db.session.commit()
 
 
-def list_tasks(page, per_page):
-    tasks = (
-        RegularTask.query.filter(RegularTask.is_completed == False)
-        .order_by(RegularTask.priority.asc())
-        .paginate(page=page, per_page=per_page)
+def list_tasks(category_id, page, per_page):
+    category_tasks = RegularTask.query.filter_by(category_id=category_id)
+    tasks = category_tasks.order_by(RegularTask.priority.asc()).paginate(
+        page=page, per_page=per_page
     )
     return tasks
 
