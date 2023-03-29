@@ -4,7 +4,7 @@
 
 .data-table {
 	width: 100%;
-	margin-top: 3px;
+	margin-top: 10px;
 	border-collapse: collapse;
 }
 
@@ -34,7 +34,7 @@
 .data-table td:first-child {
 	text-align: center;
 	font-weight: bold;
-	width: 3%;
+	width: 15%;
 }
 
 .data-table td:last-child {
