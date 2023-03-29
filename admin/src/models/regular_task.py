@@ -11,7 +11,7 @@ class RegularTask(db.Model):
     priority = db.Column(db.Integer, nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
     category = db.relationship("Category", backref="tasks")
-    deadline = db.Column(db.String(100), nullable=False)
+    deadline = db.Column(db.Date, default=date.min, nullable=False)
 
     is_completed = db.Column(db.Boolean, default=False, nullable=False)
     date_added = db.Column(db.Date, default=date.today)
@@ -44,7 +44,6 @@ def update(data):
     task.priority = data["priority"]
     task.category = data["category"]
     task.deadline = data["deadline"]
-    task.is_completed = data["is_completed"]
     db.session.commit()
 
 
@@ -60,7 +59,7 @@ def delete_by_name(name):
 
 def list_tasks(category_id, page, per_page):
     category_tasks = RegularTask.query.filter_by(category_id=category_id)
-    tasks = category_tasks.order_by(RegularTask.priority.asc()).paginate(
+    tasks = category_tasks.order_by(RegularTask.priority.desc()).paginate(
         page=page, per_page=per_page
     )
     return tasks
