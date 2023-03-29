@@ -63,7 +63,7 @@ def delete_by_name(name):
 
 def list_tasks(category_id, page, per_page):
     category_tasks = FrecuentTask.query.filter_by(category_id=category_id)
-    tasks = category_tasks.order_by(FrecuentTask.priority.asc()).paginate(
+    tasks = category_tasks.order_by(FrecuentTask.priority.desc()).paginate(
         page=page, per_page=per_page
     )
     return tasks
