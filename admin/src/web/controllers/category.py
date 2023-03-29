@@ -1,42 +1,44 @@
 from flask import Blueprint, render_template, request, redirect
 from src.models import category
+from src.web.forms.category import CategoryForm
 
 category_blueprint = Blueprint("categories", __name__, url_prefix="/categories")
-
-
-@category_blueprint.get("/add-category")
-def show_form_category():
-    return render_template("")
 
 
 @category_blueprint.get("/category/<id>")
 def show_category_data(id):
     kwargs = {"category": category.find_by_id(id)}
-    return render_template("", **kwargs)
+    return render_template("/categories/show_category.html", **kwargs)
 
 
-@category_blueprint.post("/create-category")
+@category_blueprint.route("/create-category", methods=["GET", "POST"])
 def create_category():
-    data = {
-        "name": request.form.get("name"),
-        "description": request.form.get("description"),
-        "icon": request.form.get("icon"),
-        "color": request.form.get("color"),
-    }
-    category.create(data)
-    return redirect("/categories/all")
+    form = CategoryForm()
+    if form.validate_on_submit():
+        print("asd")
+        data = {
+            "name": form.name.data,
+            "description": request.form.get("description"),
+            "icon": request.form.get("icon"),
+            "color": request.form.get("color"),
+        }
+        category.create(data)
+        return redirect("/categories/")
+    else:
+        return render_template("/categories/add_category.html", form=form)
 
 
 @category_blueprint.post("/update-category")
 def update_category():
     data = {
+        "id": request.form.get("id"),
         "name": request.form.get("name"),
         "description": request.form.get("description"),
         "icon": request.form.get("icon"),
         "color": request.form.get("color"),
     }
     category.update(data)
-    return redirect("/categories/all")
+    return redirect("/categories/")
 
 
 @category_blueprint.get("/")
@@ -50,4 +52,4 @@ def list_all():
 @category_blueprint.route("/delete/<id>", methods=["GET", "DELETE"])
 def delete_category(id):
     category.delete_by_id(id)
-    return redirect("/categories/all")
+    return redirect("/categories/")
