@@ -44,6 +44,7 @@ def update(data):
     task.priority = data["priority"]
     task.category = data["category"]
     task.deadline = data["deadline"]
+    task.is_completed = data["is_completed"]
     db.session.commit()
 
 
@@ -58,8 +59,11 @@ def delete_by_name(name):
 
 
 def list_tasks(category_id, page, per_page):
-    category_tasks = RegularTask.query.filter_by(category_id=category_id)
-    tasks = category_tasks.order_by(RegularTask.priority.desc()).paginate(
+    category_incomplete_tasks = RegularTask.query.filter_by(
+        category_id=category_id
+    ).filter_by(is_completed=False)
+
+    tasks = category_incomplete_tasks.order_by(RegularTask.priority.desc()).paginate(
         page=page, per_page=per_page
     )
     return tasks
