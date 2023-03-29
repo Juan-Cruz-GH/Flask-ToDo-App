@@ -1,5 +1,6 @@
-{% extends "layout.html" %} {% block title %} Categories {% endblock %} {% block head %} {{ super()
-}} {% endblock %} {% block content %} {% with messages = get_flashed_messages() %} {% if messages %}
+{% extends "layout.html" %} {% block title %} Add category {% endblock %} {% block head %} {{
+super() }} {% endblock %} {% block content %} {% with messages = get_flashed_messages() %} {% if
+messages %}
 <ul class="flashes">
 	{% for message in messages %}
 	<div class="alert alert-warning" role="alert">
@@ -8,10 +9,48 @@
 	{% endfor %}
 </ul>
 {% endif %} {% endwith %}
-<form method="post">
-	{{ form.hidden_tag() }}
-	<div>{{ form.name.label }} {{ form.name }}</div>
-	<div>{{ form.description.label }} {{ form.description }}</div>
-	<div>{{ form.submit }}</div>
-</form>
+<div class="card">
+	<h5 class="card-header">Add category</h5>
+	<div class="card-body">
+		<form method="POST" action="{{ url_for('categories.create_category')}}">
+			<div class="row mb-4">
+				<div class="col">
+					<div class="form-outline">
+						<label class="form-label" for="name">Name </label>
+						<input type="text" id="name" name="name" class="form-control" required />
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-outline">
+						<label class="form-label" for="description">Description</label>
+						<input
+							type="text"
+							id="description"
+							name="description"
+							class="form-control"
+							required
+						/>
+					</div>
+				</div>
+			</div>
+
+			<!-- 			<div class="row mb-4">
+				<div class="col">
+					<div class="form-outline">
+						<label class="form-label" for="icon">Icon</label>
+						<input type="text" id="icon" name="icon" class="form-control" required />
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-outline">
+						<label class="form-label" for="color">Color</label>
+						<input type="text" id="color" name="color" class="form-control" required />
+					</div>
+				</div>
+			</div> -->
+			<button type="submit" class="btn btn-primary btn-block mb-4">Submit</button>
+		</form>
+	</div>
+</div>
+
 {% endblock %}
