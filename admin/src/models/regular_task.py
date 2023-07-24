@@ -6,7 +6,7 @@ class RegularTask(db.Model):
     __tablename__ = "regular_tasks"
 
     id = db.Column(db.Integer, primary_key=True, nullable=False)
-    name = db.Column(db.String(100), unique=True, nullable=False)
+    name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(255), nullable=False)
     priority = db.Column(db.Integer, nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
@@ -33,10 +33,6 @@ def find_by_id(id):
     return RegularTask.query.get(id)
 
 
-def find_by_name(name):
-    return RegularTask.query.get(name)
-
-
 def update(data):
     task = RegularTask.query.get(data["id"])
     task.name = data["name"]
@@ -53,19 +49,10 @@ def delete_by_id(id):
     db.session.commit()
 
 
-def delete_by_name(name):
-    db.session.delete(find_by_name(name))
-    db.session.commit()
-
-
 def list_tasks(category_id, page, per_page):
-    category_incomplete_tasks = RegularTask.query.filter_by(
-        category_id=category_id
-    ).filter_by(is_completed=False)
+    category_incomplete_tasks = RegularTask.query.filter_by(category_id=category_id).filter_by(is_completed=False)
 
-    tasks = category_incomplete_tasks.order_by(RegularTask.priority.desc()).paginate(
-        page=page, per_page=per_page
-    )
+    tasks = category_incomplete_tasks.order_by(RegularTask.priority.desc()).paginate(page=page, per_page=per_page)
     return tasks
 
 

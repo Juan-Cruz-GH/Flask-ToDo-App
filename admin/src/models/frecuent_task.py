@@ -6,7 +6,7 @@ class FrecuentTask(db.Model):
     __tablename__ = "frecuent_tasks"
 
     id = db.Column(db.Integer, primary_key=True, nullable=False)
-    name = db.Column(db.String(100), unique=True, nullable=False)
+    name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(255), nullable=False)
     priority = db.Column(db.Integer, nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
@@ -35,10 +35,6 @@ def find_by_id(id):
     return FrecuentTask.query.get(id)
 
 
-def find_by_name(name):
-    return FrecuentTask.query.get(name)
-
-
 def update(data):
     task = FrecuentTask.query.get(data["id"])
     task.name = data["name"]
@@ -56,14 +52,7 @@ def delete_by_id(id):
     db.session.commit()
 
 
-def delete_by_name(name):
-    db.session.delete(find_by_name(name))
-    db.session.commit()
-
-
 def list_tasks(category_id, page, per_page):
     category_tasks = FrecuentTask.query.filter_by(category_id=category_id)
-    tasks = category_tasks.order_by(FrecuentTask.priority.desc()).paginate(
-        page=page, per_page=per_page
-    )
+    tasks = category_tasks.order_by(FrecuentTask.priority.desc()).paginate(page=page, per_page=per_page)
     return tasks
